@@ -49,6 +49,12 @@ jobs:
           brew install automake
           brew install gdal
 
+      - name: Find homebrew dependencies
+        run: |
+          pkg-config --cflags --silence-errors gmp
+          pkg-config --cflags --silence-errors gmpxx
+          pkg-config --cflags --silence-errors mpfr
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 4
