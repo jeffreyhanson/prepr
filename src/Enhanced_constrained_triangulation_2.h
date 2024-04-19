@@ -28,7 +28,7 @@ class Is_Delaunay {
 public:
   typedef T Triangulation;
   typedef typename Triangulation::List_edges List_edges;
-  
+
   static void if_Delaunay_make_Delaunay(Enhanced_constrained_triangulation_2<T> &et, List_edges &e) {
     std::cout << "Unknown triangulation: cannot make Delaunay" << std::endl;
   }
@@ -39,7 +39,7 @@ class Is_Delaunay<CGAL::Constrained_Delaunay_triangulation_2<K, TDS, Itag> > {
 public:
   typedef CGAL::Constrained_Delaunay_triangulation_2<K, TDS, Itag> Triangulation;
   typedef typename Triangulation::List_edges List_edges;
-  
+
   static void if_Delaunay_make_Delaunay(Enhanced_constrained_triangulation_2<Triangulation> &et, List_edges &e) {
     et.propagating_flip(e);
   }
@@ -50,7 +50,7 @@ class Is_Delaunay<CGAL::Constrained_triangulation_2<K, TDS, Itag> > {
 public:
   typedef CGAL::Constrained_triangulation_2<K, TDS, Itag> Triangulation;
   typedef typename Triangulation::List_edges List_edges;
-  
+
   static void if_Delaunay_make_Delaunay(Enhanced_constrained_triangulation_2<Triangulation> &et, List_edges &e) {
     // Do nothing
   }
@@ -67,7 +67,7 @@ public:
   typedef typename T::Locate_type Locate_type;
   typedef typename T::List_faces List_faces;
   typedef typename T::List_edges List_edges;
-  
+
   Vertex_handle insert(const Point &p, Face_handle f = Face_handle()) {
     // std::cout << "Enhanced_triangulation_2::insert(const Point &, Face_handle)" << std::endl;
     Locate_type location_type;
@@ -75,28 +75,28 @@ public:
     Face_handle location = T::locate(p, location_type, location_vertex, f);
     return insert(p, location_type, location, location_vertex);
   }
-  
+
   Vertex_handle insert(const Point &p, Locate_type &lt, Face_handle loc, int li) {
     // std::cout << "Enhanced_triangulation_2::insert(const Point &, Locate_type &, Face_handle, int)" << std::endl;
     // TODO: Read and reset info on faces & edges that are split because of the insertion
     return T::insert(p, lt, loc, li);
   }
-  
+
   void odd_even_insert_constraint(const Point& a, const Point& b) {
     Vertex_handle va = insert(a);
     Vertex_handle vb = insert(b);
     if (va != vb) odd_even_insert_constraint(va, vb);
   }
-  
+
   void odd_even_insert_constraint(Vertex_handle va, Vertex_handle vb) {
-    CGAL_triangulation_precondition(va != vb);
-    
+    CGAL_precondition(va != vb);
+
 //    std::cout << "Triangulation:" << std::endl;
 //    for (typename T::All_faces_iterator current_face = T::all_faces_begin(); current_face != T::all_faces_end(); ++current_face) {
 //      std::cout << "\tTriangle [0]: " << current_face->vertex(0)->point() << " [1]: " << current_face->vertex(1)->point() << " [2]: " << current_face->vertex(2)->point() << std::endl;
 //    } std::cout.precision(15);
 //    std::cout << "Adding constraint from " << va->point() << " to " << vb->point() << std::endl;
-    
+
     // If [va, vb] lies on an existing edge
     Vertex_handle vertex_on_other_end;
     Face_handle incident_face;
@@ -112,7 +112,7 @@ public:
       if (vertex_on_other_end != vb) odd_even_insert_constraint(vertex_on_other_end, vb);
       return;
     }
-    
+
     // If [va, vb] intersects a constrained edge or an existing vertex
     List_faces intersected_faces;
     List_edges conflict_boundary_ab, conflict_boundary_ba;
@@ -124,7 +124,7 @@ public:
       } else odd_even_insert_constraint(va, vb);
       return;
     }
-    
+
     // Otherwise
     T::triangulate_hole(intersected_faces, conflict_boundary_ab, conflict_boundary_ba);
     if (intersection != vb) {

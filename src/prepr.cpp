@@ -1,4 +1,4 @@
-// [[Rcpp::depends(cgalh, sf)]]
+// [[Rcpp::depends(RcppCGAL, sf, BH)]]
 // [[Rcpp::plugins(cpp17)]]
 
 #include <sf.h>
