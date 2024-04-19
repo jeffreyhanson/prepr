@@ -1,8 +1,8 @@
-// [[Rcpp::depends(RcppCGAL, sf, BH)]]
+// [[Rcpp::depends(RcppEigen, RcppCGAL, sf, BH)]]
 // [[Rcpp::plugins(cpp17)]]
 
 #include <sf.h>
-#include <Rcpp.h>
+#include <RcppEigen.h>
 #include <ogrsf_frmts.h>
 #include "Polygon_repair.h"
 
