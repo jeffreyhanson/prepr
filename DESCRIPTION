@@ -41,7 +41,8 @@ LinkingTo:
     Rcpp,
     BH (>= 1.71.0.0),
     sf (>= 1.0.8),
-    RcppCGAL (>= 5.6.2)
+    RcppCGAL (>= 5.6.2),
+    RcppEigen (>= 0.3.4.0.0)
 Imports:
     Rcpp,
     sf (>= 1.0.8)
