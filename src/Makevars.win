@@ -2,8 +2,9 @@ VERSION = 3.4.1
 RWINLIB = ../windows/gdal3-$(VERSION)
 TARGET = lib$(subst gcc,,$(COMPILED_BY))$(R_ARCH)
 
-PKG_CPPFLAGS =
-	-I$(RWINLIB)/include/gdal-3.4.1 \
+PKG_CPPFLAGS =\
+	-I$(RWINLIB)/include \
+	-DHAVE_PROJ_H
 	-DCGAL_USE_GMPXX=1 \
 	-O3 -DNDEBUG -frounding-math
 
@@ -17,7 +18,8 @@ PKG_LIBS = \
 	-lmfhdf -lhdf -lxdr -lpcre \
 	-lopenjp2 -ljasper -lpng -ljpeg -ltiff -lgeotiff -lgif -lxml2 -llzma -lz -lzstd \
 	-lodbc32 -lodbccp32 -liconv -lpsapi -lwldap32 -lsecur32 -lgdi32 -lnormaliz \
-	-lcrypto -lcrypt32 -lws2_32 -lshlwapi -lbcrypt -lgmp -lmpfr -lgmpxx
+	-lcrypto -lcrypt32 -lws2_32 -lshlwapi -lbcrypt \
+	-lgmp -lmpfr -lgmpxx
 
 all: clean winlibs
 
