@@ -2,11 +2,8 @@
 // [[Rcpp::plugins(cpp17)]]
 
 #include <sf.h>
-
 #include <Rcpp.h>
-
 #include <ogrsf_frmts.h>
-
 #include "Polygon_repair.h"
 
 // borrowed from sf source code, (c) Edzer Pebesma
